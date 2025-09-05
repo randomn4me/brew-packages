@@ -1,9 +1,9 @@
 class Dictcc < Formula
   desc "A Python script for installing with dict.cc"
   homepage "https://github.com/randomn4me/dictcc"
-  url "https://github.com/randomn4me/dictcc/archive/refs/tags/1.8.zip"
-  version "1.8"
-  sha256 "cd1e52d4e14bec00eb29fe8fca4d9653db57bd026c2be4f325337e1e1415fa25"
+  url "https://github.com/randomn4me/dictcc/archive/refs/tags/1.9.zip"
+  version "1.9"
+  sha256 "7759db76b0a4bd8b34b1e92e68b049c73377942053b1866dceb84014dd7d6fb5"
 
   depends_on "python@3.10" # Ensure Python 3.10 or later is available
 
