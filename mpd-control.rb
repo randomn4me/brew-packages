@@ -11,6 +11,9 @@ class MpdControl < Formula
   depends_on :macos
 
   def install
+    # Fix CMake minimum version compatibility
+    inreplace "CMakeLists.txt", /cmake_minimum_required\s*\(\s*VERSION\s+[0-9.]+\s*\)/, "cmake_minimum_required(VERSION 3.5)"
+    
     system "cmake", "-S", ".", "-B", "build",
                     "-DCMAKE_BUILD_TYPE=Release",
                     "-DCMAKE_INSTALL_PREFIX=#{prefix}",
