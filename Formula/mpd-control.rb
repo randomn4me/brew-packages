@@ -1,8 +1,8 @@
 class MpdControl < Formula
   desc "Control MPD with Media Keys under macOS"
   homepage "https://github.com/randomn4me/mac-mpd-control"
-  url "https://github.com/randomn4me/mac-mpd-control/archive/refs/tags/v0.1.tar.gz"
-  sha256 "cbf7db2ff02e957dae343384df8c26e0151b11e46901e40ef7a27b3e47a7aa20"
+  url "https://github.com/randomn4me/mac-mpd-control/archive/refs/tags/v0.1.1.tar.gz"
+  sha256 "6d22bcce682972cf216575530ab5eb5660f0086fac48e6faaf999ab014783a54"
   license "MIT"
   head "https://github.com/randomn4me/mac-mpd-control.git", branch: "master"
 
@@ -14,11 +14,18 @@ class MpdControl < Formula
     # Fix CMake minimum version compatibility
     inreplace "CMakeLists.txt", /cmake_minimum_required\s*\(\s*VERSION\s+[0-9.]+\s*\)/, "cmake_minimum_required(VERSION 3.5)"
     
+    # Fix hardcoded install paths in CMakeLists.txt
+    inreplace "CMakeLists.txt" do |s|
+      s.gsub! 'set(PROJECT_INSTALL_BIN_DST_PATH "/usr/local/bin")', 
+              "set(PROJECT_INSTALL_BIN_DST_PATH \"${CMAKE_INSTALL_PREFIX}/bin\")"
+      s.gsub! 'set(PROJECT_INSTALL_LAUNCHAGENTS_DST_PATH "~/Library/LaunchAgents")',
+              "set(PROJECT_INSTALL_LAUNCHAGENTS_DST_PATH \"${CMAKE_INSTALL_PREFIX}/LaunchAgents\")"
+    end
+    
+    # Use the provided install paths via CMake variables  
     system "cmake", "-S", ".", "-B", "build",
                     "-DCMAKE_BUILD_TYPE=Release",
-                    "-DCMAKE_INSTALL_PREFIX=#{prefix}",
-                    "-DPROJECT_INSTALL_BIN_DST_PATH=#{bin}",
-                    "-DPROJECT_INSTALL_LAUNCHAGENTS_DST_PATH=#{prefix}/LaunchAgents"
+                    "-DCMAKE_INSTALL_PREFIX=#{prefix}"
 
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
