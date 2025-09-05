@@ -8,7 +8,7 @@ class MpdControl < Formula
 
   depends_on "cmake" => :build
   depends_on "mpc"
-  depends_on :macos => :mountain_lion
+  depends_on :macos
 
   def install
     system "cmake", "-S", ".", "-B", "build",
