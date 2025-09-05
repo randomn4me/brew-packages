@@ -38,7 +38,7 @@ class MpdControl < Formula
   service do
     run [opt_bin/"mpdcontrold"]
     keep_alive true
-    environment_variables PATH: "/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
+    environment_variables PATH: "#{HOMEBREW_PREFIX}/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
     log_path var/"log/mpdcontrold.log"
     error_log_path var/"log/mpdcontrold.error.log"
   end
