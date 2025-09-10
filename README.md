@@ -5,7 +5,7 @@ Personal Homebrew tap for custom formulas.
 ## Available Formulas
 
 - **dictcc** - Python script for dict.cc dictionary lookups
-- **mpd-control** - Control MPD with media keys on macOS
+- **mac-mpd-controls** - Lightweight command-line MPD client for macOS with media key integration
 
 ## Installation
 
