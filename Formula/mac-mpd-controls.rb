@@ -40,16 +40,16 @@ class MacMpdControls < Formula
         ~/Library/LaunchAgents/com.github.randomn4me.mac-mpd-controls.plist
 
       To load the service (start now and at login):
-        launchctl load -w ~/Library/LaunchAgents/com.github.randomn4me.mac-mpd-controls.plist
+        launchctl load -w ~/Library/LaunchAgents/mpdcontrol.agent.plist
 
       To unload the service (stop and disable from login):
-        launchctl unload -w ~/Library/LaunchAgents/com.github.randomn4me.mac-mpd-controls.plist
+        launchctl unload -w ~/Library/LaunchAgents/mpdcontrol.agent.plist
 
       To start the service manually (one-time):
-        launchctl start com.github.randomn4me.mac-mpd-controls
+        launchctl start mpdcontrol.agent
 
       To stop the service manually:
-        launchctl stop com.github.randomn4me.mac-mpd-controls
+        launchctl stop mpdcontrol.agent
 
       Or run directly without the service:
         mac-mpd-controls
