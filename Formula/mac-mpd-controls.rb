@@ -14,11 +14,12 @@ class MacMpdControls < Formula
     bin.install ".build/release/MPDControls" => "mac-mpd-controls"
 
     # Install provided plist file to LaunchAgents directory
-    plist_content = File.read("com.github.randomn4me.mac-mpd-controls.plist")
-    # Replace placeholder with actual binary path
-    plist_content.gsub!("__BINARY_PATH__", opt_bin/"mac-mpd-controls")
-    plist_content.gsub!("__HOMEBREW_PREFIX__", HOMEBREW_PREFIX)
-    plist_content.gsub!("__HOME__", ENV["HOME"])
+    plist_content = File.read("mpdcontrol.agent.plist")
+    # Replace hardcoded paths with actual paths
+    plist_content.gsub!("/usr/local/bin/MPDControls", opt_bin/"mac-mpd-controls")
+    plist_content.gsub!("/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/sbin", "#{HOMEBREW_PREFIX}/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin")
+    plist_content.gsub!("/tmp/mpdcontrols.log", "#{ENV["HOME"]}/Library/Logs/mac-mpd-controls.log")
+    plist_content.gsub!("/tmp/mpdcontrols.error.log", "#{ENV["HOME"]}/Library/Logs/mac-mpd-controls.error.log")
 
     launchagents_dir = Pathname.new(ENV["HOME"])/"Library/LaunchAgents"
     launchagents_dir.mkpath
