@@ -14,10 +14,39 @@ class MacMpdControls < Formula
     bin.install ".build/release/MPDControls" => "mac-mpd-controls"
   end
 
+  def plist
+    <<~EOS
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+        <key>Label</key>
+        <string>#{plist_name}</string>
+        <key>ProgramArguments</key>
+        <array>
+          <string>#{opt_bin}/mac-mpd-controls</string>
+        </array>
+        <key>KeepAlive</key>
+        <true/>
+        <key>LimitLoadToSessionType</key>
+        <string>Aqua</string>
+        <key>EnvironmentVariables</key>
+        <dict>
+          <key>PATH</key>
+          <string>#{HOMEBREW_PREFIX}/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin</string>
+        </dict>
+        <key>StandardOutPath</key>
+        <string>#{var}/log/mac-mpd-controls.log</string>
+        <key>StandardErrorPath</key>
+        <string>#{var}/log/mac-mpd-controls.error.log</string>
+      </dict>
+      </plist>
+    EOS
+  end
+
   service do
     run [opt_bin/"mac-mpd-controls"]
     keep_alive true
-    session_type :aqua
     environment_variables PATH: "#{HOMEBREW_PREFIX}/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
     log_path var/"log/mac-mpd-controls.log"
     error_log_path var/"log/mac-mpd-controls.error.log"
